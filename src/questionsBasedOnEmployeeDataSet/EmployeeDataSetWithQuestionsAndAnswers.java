@@ -227,12 +227,30 @@ public static List<Employee> getEmployeesDataSet(){
 			System.out.println(key + " : " + value);
 		});
 		 
-		//28. sort the employees salary in each department in ascending order
+		//28a. sort the employees salary in each department in ascending order
 		Map<String, List<Employee>> employeesBySortedSalaryDescDeptWise = employeesDataSet.stream().collect(Collectors.groupingBy(Employee::getDept, Collectors.collectingAndThen(Collectors.toList(), 
 				   empList -> empList.stream().sorted(Comparator.comparingLong(Employee::getSalary).reversed()).collect(Collectors.toList()))));
 		employeesBySortedSalaryDescDeptWise.forEach((key, value) -> {
 			System.out.println(key + " : " + value);
 		});
+		
+		//28b. sort the employees salary in each department in ascending order
+		Map<String, List<Long>> sortedEmpSalaryInEachDepartment = employeesDataSet.stream()
+				.collect(Collectors.groupingBy(Employee::getDept, Collectors.mapping(Employee::getSalary, Collectors.toList())))
+				.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream().sorted().collect(Collectors.toList())));
+		sortedEmpSalaryInEachDepartment.forEach((key, value) -> {
+			 System.out.println(key + " : " + value);
+		});
+		
+		//29. find the Nth highest salary of the organization
+		//n = nth highest salary
+		Entry<Long, List<String>> entry = employeesDataSet.stream().collect(Collectors.groupingBy(Employee::getSalary,Collectors.mapping(Employee::getName, Collectors.toList())))
+		           .entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+		           .collect(Collectors.toList())
+		           .get(n - 1);
+		System.out.println(entry.getKey()+ " - " + entry.getValue());
+		
+		
 	}
 
 }
