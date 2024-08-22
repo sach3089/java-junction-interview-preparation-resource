@@ -94,17 +94,16 @@ public class Employee {
 	public static void main(String[] args) {
 		
 		Employee employee1 = new Employee(0, "sachin", "ECE", 23000, 23,"Male","Gaya",2017);
-		Employee employee2 = new Employee(0, "sachin", "ECE", 23000, 23,"Male","Patna", 2018);
+		Employee employee2 = new Employee(0, "sachin", "ECE", 23000, 23,"Male","Gaya", 2017);
+		Employee employee3 = employee1;
 		
-		//by deafult equals method of object class 
-		//compares object references, meaning it checks if both 
-		//references point to the same object in memory. 
-		//To check if two objects are considered 
-		//equal based on their data, you need to override the equals method in your class.
+		/*By default equals method of object class 
+		compares object references, meaning it checks if both 
+		references point to the same object in memory. 
+		To check if two objects are considered 
+		equal based on their data, you need to override the equals method in your class.*/
 		System.out.println(employee1.equals(employee2)); 
-		
-		Employee employee3 = employee2;
-		System.out.println(employee3.equals(employee2)); 
+		System.out.println(employee3.equals(employee1)); 
 	}
 
 }
