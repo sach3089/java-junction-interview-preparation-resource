@@ -250,6 +250,13 @@ public static List<Employee> getEmployeesDataSet(){
 		           .get(n - 1);
 		System.out.println(entry.getKey()+ " - " + entry.getValue());
 		
+		//this is tricky
+		//30. print all department names which has the highest number of employees
+		employeesDataSet.stream()
+		        .collect(Collectors.groupingBy(Employee::getDept, Collectors.counting()))
+				.entrySet().stream().collect(Collectors.groupingBy(Map.Entry::getValue))
+				.entrySet().stream().max(Map.Entry.comparingByKey())
+				.ifPresent(en -> en.getValue().stream().collect(Collectors.mapping(Map.Entry::getKey, Collectors.toList())).forEach(System.out::println));
 		
 	}
 
