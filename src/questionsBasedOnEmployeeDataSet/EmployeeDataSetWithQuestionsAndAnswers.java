@@ -201,6 +201,9 @@ public static List<Employee> getEmployeesDataSet(){
 		//25. sort the employee salaries in ascending order
 		employeesDataSet.stream().sorted(Comparator.comparingLong(Employee::getSalary).reversed()).map(Employee::getSalary)
 		        .forEach(System.out::println);
+		//25. sort the employees on the basis of salary and print theirs name accordingly
+		employeesDataSet.stream().sorted(Comparator.comparingDouble(Employee::getSalary)).map(Employee::getName)
+		       .collect(Collectors.toList()).forEach(System.out::println);;
 		
 		//26 . find highest salary based on department wise
 		Map<String, Optional<Employee>> highestPaidEmployeesDeptWise = employeesDataSet.stream().collect(Collectors.groupingBy(Employee::getDept,Collectors.collectingAndThen(Collectors.toList(), 
